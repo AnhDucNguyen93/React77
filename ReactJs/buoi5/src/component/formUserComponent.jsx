@@ -35,18 +35,18 @@ function FormUser({ ojbInfo, renderArrObj, detailUser }) {
             renderArrObj(newArrObj);
             resetForm();
         }
-        return;
+        // return;
     }
     // Edit Item
     const editItem = () => {
         const newObj = validateItem();
-        if (detailUser) {
+        if (detailUser && newObj) {
             const newArr = [...ojbInfo];
             newArr[detailUser.index] = newObj;
             renderArrObj(newArr);
             resetForm();
         }
-        return;
+        // return;
     }
 
     // Reset Form

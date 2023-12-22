@@ -1,6 +1,5 @@
 import './App.css'
 import RenderArrObj from './component/renderArrObj';
-import FormUser from './component/formUserComponent';
 import { useEffect, useState } from 'react';
 //axios call api
 import axios from 'axios';

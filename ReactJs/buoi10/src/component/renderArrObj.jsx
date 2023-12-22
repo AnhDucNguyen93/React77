@@ -1,5 +1,5 @@
 import { Space, Table, Tag, Button } from 'antd';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 function RenderArrObj({ objInfo, onRemove, isLoading }) {
@@ -41,8 +41,8 @@ function RenderArrObj({ objInfo, onRemove, isLoading }) {
                         Delete
                     </Button>
 
-                    <Link to={`editUser/${item.id}`}>
-                        <Button type="primary">Edit</Button>
+                    <Link to={`/editUser/${item.id}`}>
+                        <Button type="primary" className='text-regalBlue'>Edit</Button>
                     </Link>
                 </>)
             }
@@ -61,7 +61,14 @@ function RenderArrObj({ objInfo, onRemove, isLoading }) {
     };
     return (
         <>
-            <h5>Thông tin danh sách</h5>
+            <div className="flex justify-between">
+                <h4 className="italic text-regalBlue text-bold">
+                    Danh sách người dùng
+                </h4>
+                <Link to="/addUser">
+                    <button>Add new Item</button>
+                </Link>
+            </div>
             {renderList(objInfo)}
         </>
     );
