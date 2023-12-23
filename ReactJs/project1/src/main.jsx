@@ -6,6 +6,7 @@ import Root from './routes/root'
 import ErrorPage from './error-page'
 import Home from './componet/home'
 import App from './componet/app'
+import FormUser from './componet/formUser'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "/userlist",
         element: <App />,
+      },
+      {
+        path: "/formUser/:id",
+        element: <FormUser />,
       },
     ]
   },

@@ -1,16 +1,19 @@
-import { Space, Table, Tag } from 'antd';
+import { Space, Table, Tag, Button } from 'antd';
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 
-function RenderList({ objInfo }) {
+function RenderList({ objInfo, isLoading, deleteItem }) {
 
     const columns = [
         {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            render: (text) => <a>{text}</a>,
+            render: (name) => (
+                <a style={{ color: 'red' }}>{name}!!!</a>
+            ),
+            with: '5px',
         },
         {
             title: 'Age',
@@ -25,33 +28,40 @@ function RenderList({ objInfo }) {
         {
             title: 'Action',
             key: 'action',
-            // render: (_, item, index) => {
-            //   // to do something
-            //   console.log('item', count++);
-            //   return (
-            //     <>
-            //       <Button
-            //         type="primary"
-            //         danger
-            //         onClick={() => deleteItem(item, index)}
-            //       >
-            //         Delete
-            //       </Button>
+            render: (_, item, index) => {
+                // to do something
+                console.log(item)
+                return (
+                    <>
+                        <Button
+                            type="primary"
+                            danger
+                            onClick={() => deleteItem(item, index)}
+                        >
+                            Delete
+                        </Button>
+                        <Link to={`/formUser/${item.id}`}>
+                            <Button>Edit</Button>
+                        </Link>
 
-            //       <Link to={`editUser/${item.id}`}>
-            //         <Button>Edit</Button>
-            //       </Link>
-            //     </>
-            //   );
-            // },
+                    </>
+                );
+            },
         },
     ];
 
     const renderList = (arr) => {
-        <Table columns={columns} dataSource={arr}
-        // rowKey={(el) => el.id}
-        />;
+        const rederMemoList = useMemo(
+            () => (
+                <Table columns={columns} dataSource={arr} loading={isLoading}
+                    rowKey={(el) => el.id}
+                    size={'medium'}
+                />
+            ), [arr.length])
+
+        return rederMemoList;
     }
+
 
     return (
         <div>
