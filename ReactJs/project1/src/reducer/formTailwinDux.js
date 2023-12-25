@@ -9,9 +9,9 @@ export const formTailWin = createSlice({
         // size: { s: S, m: M, l: L, xl: XL },
     },
     reducers: {
-        editPro: (state, name, price) => {
-            state.name = name.payload;
-            state.price = price.payload;
+        editPro: (state, action) => {
+            state.name = action.payload.name;
+            state.price = action.payload.price;
         }
     }
 })

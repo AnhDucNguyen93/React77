@@ -1,13 +1,14 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Space, Table, Tag, Button } from 'antd';
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { editPro } from '../reducer/formTailwinDux'
 
 function FormTaiWind() {
 
     const nameRef = useRef('');
     const priceRef = useRef('');
+    const navigate = useNavigate();
     const disPath = useDispatch();
     const stateTailWind = useSelector((state) => state.formTailWin);
 
@@ -19,7 +20,8 @@ function FormTaiWind() {
             alert('Dữ liệu không được để trống')
             return
         }
-        disPath(editPro(name, price));
+        disPath(editPro({ name, price }));
+        // navigate('/detailUser');
     };
 
     useEffect(() => {
