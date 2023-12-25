@@ -69,9 +69,9 @@ function RenderList({ objInfo, isLoading, deleteItem }) {
                 <h4 className="italic text-regalBlue text-bold">
                     Danh sách người dùng
                 </h4>
-                <Link to="/addUser">
+                {/* <Link to="/addUser">
                     <button>Add new Item</button>
-                </Link>
+                </Link> */}
             </div>
             {renderList(objInfo)}
         </div>

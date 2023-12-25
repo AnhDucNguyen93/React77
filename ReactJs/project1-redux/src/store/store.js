@@ -1,8 +1,8 @@
 import { configureStore as Store } from "@reduxjs/toolkit";
-import formTailWin from '../reducer/formTailwinDux';
+import editAddUser from "../reducer/formUser"
 
 export default Store({
     reducer: {
-        formTailWin
+        editAddUser,
     }
 })

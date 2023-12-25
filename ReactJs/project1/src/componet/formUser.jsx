@@ -1,16 +1,19 @@
 import { useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import { Space, Table, Tag, Button } from 'antd';
+
 import axios from 'axios';
 
-function FormUser() {
 
-    let { id } = useParams();
+function FormUser() {
     const api = 'https://64e5ff9b09e64530d17f69b9.mockapi.io/userInfo'
+    let { id } = useParams();
 
     const nameRef = useRef('');
     const ageRef = useRef('');
     const addressRef = useRef('');
     const infoRef = useRef('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (id) {
@@ -25,6 +28,55 @@ function FormUser() {
                 .catch(err => console.log(err, 'Lỗi rồi'))
         }
     }, []);
+    // Validate
+    const validateUser = () => {
+        const newObj = {
+            name: nameRef.current.value,
+            age: ageRef.current.value,
+            address: addressRef.current.value,
+            info: infoRef.current.value,
+        }
+        const { name, age, address, info } = newObj;
+        if (name.trim() === '' || !age || address.trim() === '' || info.trim() === '') {
+            alert('Dữ liệu không được để trống');
+            return false;
+        };
+        return newObj;
+    }
+
+    // Edit User
+    const editUser = () => {
+        const newObj = validateUser();
+        if (!newObj) {
+            return;
+        }
+        axios
+            .put(api + `/${id}`, newObj)
+            .then(res => navigate('/userlist'))
+            .catch(err => {
+                alert(err + '  Đã có lỗi xảy ra')
+            })
+    }
+
+    // Add User
+    const addUser = () => {
+        const newObj = validateUser();
+        if (!newObj) {
+            return;
+        }
+        axios
+            .post(api, newObj)
+            .then(res => navigate('/userlist'))
+            .catch(err => alert('Lỗi:   ' + err))
+    }
+
+    // Reset Form
+    const resetForm = () => {
+        nameRef.current.value = '';
+        ageRef.current.value = '';
+        addressRef.current.value = '';
+        infoRef.current.value = '';
+    }
 
     return (
         <>
@@ -76,13 +128,23 @@ function FormUser() {
                     ></textarea>
                 </div>
             </div>
-            <Button
-                type="primary"
-                danger
-                onClick={() => editUser(item, index)}
-            >
-                Delete
+            {id &&
+                <Button type="primary" danger onClick={editUser}>
+                    Edit
+                </Button>}
+            {!id &&
+                <Button type="primary" danger onClick={addUser}>
+                    Add
+                </Button>}
+
+            <Button type="primary" danger onClick={resetForm}>
+                Reset
             </Button>
+            <Link to="/userlist">
+                <Button type="primary" danger >
+                    Cancel
+                </Button>
+            </Link>
         </>
     );
 }
