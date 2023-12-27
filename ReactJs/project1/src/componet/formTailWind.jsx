@@ -21,7 +21,7 @@ function FormTaiWind() {
             return
         }
         disPath(editPro({ name, price }));
-        // navigate('/detailUser');
+        navigate('/detailUser');
     };
 
     useEffect(() => {

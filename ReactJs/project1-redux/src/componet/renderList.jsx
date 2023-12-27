@@ -1,9 +1,20 @@
 import { Space, Table, Tag, Button } from 'antd';
 import { Link } from 'react-router-dom';
-import React, { useMemo } from 'react';
-
+import React, { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fecthDataUser } from '../reducer/getDataUser';
 
 function RenderList({ objInfo, isLoading, deleteItem }) {
+    useEffect(() => { dispatch(fecthDataUser()) }, [])
+
+    const dispatch = useDispatch();
+
+    const getDataUser = useSelector((state) => state.getDataUser)
+    // console.log(getDataUser, 'action');
+
+    const userInfo = getDataUser.dataUser;
+    console.log(userInfo, 'đây nữa');
+
 
     const columns = [
         {
@@ -50,6 +61,7 @@ function RenderList({ objInfo, isLoading, deleteItem }) {
         },
     ];
 
+
     const renderList = (arr) => {
         const rederMemoList = useMemo(
             () => (
@@ -57,7 +69,7 @@ function RenderList({ objInfo, isLoading, deleteItem }) {
                     rowKey={(el) => el.id}
                     size={'medium'}
                 />
-            ), [arr.length])
+            ), [arr])
 
         return rederMemoList;
     }
@@ -73,7 +85,7 @@ function RenderList({ objInfo, isLoading, deleteItem }) {
                     <button>Add new Item</button>
                 </Link> */}
             </div>
-            {renderList(objInfo)}
+            {renderList(userInfo)}
         </div>
     );
 }

@@ -16,6 +16,6 @@ export const formTailWin = createSlice({
     }
 })
 
-export const { editProduct } = formTailWin.actions;
+export const { editPro } = formTailWin.actions;
 
 export default formTailWin.reducer;
