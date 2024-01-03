@@ -5,10 +5,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Root from './routes/root'
 import ErrorPage from './error-page'
 import Home from './componet/home'
-import App from './componet/app'
+// import App from './componet/app'
 import FormUser from './componet/formUser'
 import { Provider } from 'react-redux'
 import store from './store/store'
+import RenderList from './componet/renderList'
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/userlist",
-        element: <App />,
+        element: <RenderList />,
       },
       {
         path: "/formUser/:id",

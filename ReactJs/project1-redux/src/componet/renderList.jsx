@@ -1,20 +1,31 @@
 import { Space, Table, Tag, Button } from 'antd';
 import { Link } from 'react-router-dom';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fecthDataUser } from '../reducer/getDataUser';
+import { fecthDataUser, deleteUser } from '../reducer/getDataUser';
 
-function RenderList({ objInfo, isLoading, deleteItem }) {
-    useEffect(() => { dispatch(fecthDataUser()) }, [])
+function RenderList({ objInfo, isLoading, }) {
 
     const dispatch = useDispatch();
+    // const [userInfo, setUserInfo] = useState('');
 
     const getDataUser = useSelector((state) => state.getDataUser)
     // console.log(getDataUser, 'action');
-
     const userInfo = getDataUser.dataUser;
-    console.log(userInfo, 'đây nữa');
+    // const callData = () => {
+    //     setUserInfo(getDataUser.dataUser)
+    // }
 
+    useEffect(() => {
+        dispatch(fecthDataUser());
+        // return callData();
+    }, [])
+
+    // Delete user
+    const deleteItem = (user) => {
+        dispatch(deleteUser(user));
+        dispatch(fecthDataUser());
+    }
 
     const columns = [
         {
@@ -42,12 +53,13 @@ function RenderList({ objInfo, isLoading, deleteItem }) {
             render: (_, item, index) => {
                 // to do something
                 // console.log(item)
+                const id = item.id;
                 return (
                     <>
                         <Button
                             type="primary"
                             danger
-                            onClick={() => deleteItem(item, index)}
+                            onClick={() => deleteItem(id)}
                         >
                             Delete
                         </Button>
